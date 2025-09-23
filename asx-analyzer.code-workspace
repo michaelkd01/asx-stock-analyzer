@@ -1,0 +1,199 @@
+{
+    "folders": [
+        {
+            "name": "🚀 ASX Stock Analyzer",
+            "path": "."
+        },
+        {
+            "name": "⚛️ React Frontend",
+            "path": "./asx-stock-analyzer"
+        },
+        {
+            "name": "🐍 Flask Backend",
+            "path": "./asx_backend"
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "./asx_backend/venv/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "files.associations": {
+            "*.jsx": "javascriptreact",
+            "*.tsx": "typescriptreact"
+        },
+        "emmet.includeLanguages": {
+            "javascript": "javascriptreact",
+            "typescript": "typescriptreact"
+        },
+        "typescript.preferences.importModuleSpecifier": "relative",
+        "javascript.preferences.importModuleSpecifier": "relative",
+        "eslint.workingDirectories": [
+            "./asx-stock-analyzer"
+        ],
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/venv": true,
+            "**/dist": true,
+            "**/.git": true,
+            "**/build": true,
+            "**/__pycache__": true,
+            "**/*.pyc": true
+        },
+        "files.exclude": {
+            "**/.git": true,
+            "**/.DS_Store": true,
+            "**/node_modules": true,
+            "**/venv": true,
+            "**/__pycache__": true,
+            "**/*.pyc": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.flake8",
+            "ms-python.black-formatter",
+            "bradlc.vscode-tailwindcss",
+            "esbenp.prettier-vscode",
+            "ms-vscode.vscode-typescript-next",
+            "ms-vscode.vscode-json",
+            "formulahendry.auto-rename-tag",
+            "christian-kohler.path-intellisense",
+            "ms-vscode.vscode-eslint",
+            "dbaeumer.vscode-eslint",
+            "ms-vscode.vscode-css-peek",
+            "bradlc.vscode-tailwindcss"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "🚀 Start Backend",
+                "type": "shell",
+                "command": "source venv/bin/activate && python src/main.py",
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}/asx_backend"
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "new",
+                    "showReuseMessage": true,
+                    "clear": false
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "⚛️ Start Frontend",
+                "type": "shell",
+                "command": "pnpm run dev",
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}/asx-stock-analyzer"
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "new",
+                    "showReuseMessage": true,
+                    "clear": false
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "📦 Build Frontend",
+                "type": "shell",
+                "command": "pnpm run build",
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}/asx-stock-analyzer"
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared",
+                    "showReuseMessage": true,
+                    "clear": false
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "🔄 Deploy to Backend",
+                "type": "shell",
+                "command": "cp -r dist/* ../asx_backend/src/static/",
+                "group": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}/asx-stock-analyzer"
+                },
+                "dependsOn": "📦 Build Frontend",
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "shared",
+                    "showReuseMessage": true,
+                    "clear": false
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "🚀 Start Full Stack",
+                "dependsOrder": "parallel",
+                "dependsOn": [
+                    "🚀 Start Backend",
+                    "⚛️ Start Frontend"
+                ],
+                "group": "build",
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "new",
+                    "showReuseMessage": true,
+                    "clear": false
+                }
+            }
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "🐍 Debug Flask Backend",
+                "type": "python",
+                "request": "launch",
+                "program": "${workspaceFolder}/asx_backend/src/main.py",
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}/asx_backend",
+                "env": {
+                    "FLASK_ENV": "development",
+                    "FLASK_DEBUG": "1"
+                },
+                "python": "${workspaceFolder}/asx_backend/venv/bin/python"
+            },
+            {
+                "name": "⚛️ Debug React Frontend",
+                "type": "node",
+                "request": "launch",
+                "program": "${workspaceFolder}/asx-stock-analyzer/node_modules/.bin/vite",
+                "args": ["dev"],
+                "cwd": "${workspaceFolder}/asx-stock-analyzer",
+                "console": "integratedTerminal",
+                "env": {
+                    "NODE_ENV": "development"
+                }
+            }
+        ]
+    }
+}
